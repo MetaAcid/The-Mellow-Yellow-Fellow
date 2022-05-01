@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class YellowFellowGame : MonoBehaviour
 {
     [SerializeField]
@@ -16,6 +17,11 @@ public class YellowFellowGame : MonoBehaviour
     [SerializeField]
     GameObject winUI;
 
+    [SerializeField]
+    GameObject yellowFellow;
+
+    private GameObject player;
+    private PlayerControl playerControl;
 
     enum GameMode
     {
@@ -65,7 +71,9 @@ public class YellowFellowGame : MonoBehaviour
 
     void UpdateMainGame()
     {
-       // playerObject
+       float movX = Input.GetAxis("Horizontal");
+       float movY = Input.GetAxis("Vertical");
+       Debug.Log(new Vector2(movX, movY));
     }
 
     void StartMainMenu()
@@ -91,5 +99,9 @@ public class YellowFellowGame : MonoBehaviour
         mainMenuUI.gameObject.SetActive(false);
         highScoreUI.gameObject.SetActive(false);
         gameUI.gameObject.SetActive(true);
+
+        player = Instantiate(yellowFellow, new Vector3(7.46f, 0.409f, 4.0f), Quaternion.identity);
+        player.transform.parent = GameObject.Find("Characters").transform;
+        playerControl = player.GetComponent<PlayerControl>();
     }
 }
